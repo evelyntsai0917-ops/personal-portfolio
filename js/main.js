@@ -7,10 +7,6 @@
   const sections = [...document.querySelectorAll("main section[id]")];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  document.querySelectorAll(".panel-inner").forEach((el) => {
-    if (!el.classList.contains("about-inner")) el.classList.add("reveal");
-  });
-
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -20,30 +16,48 @@
         }
       });
     },
-    { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+    { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
   );
 
-  const aboutIo = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-in");
-          aboutIo.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-  );
-
-  document.querySelectorAll(".reveal").forEach((el) => {
+  document.querySelectorAll("[data-reveal], [data-reveal-about]").forEach((el) => {
     if (reduceMotion) el.classList.add("is-in");
     else io.observe(el);
   });
 
-  document.querySelectorAll("[data-reveal-about]").forEach((el) => {
-    if (reduceMotion) el.classList.add("is-in");
-    else aboutIo.observe(el);
+  document.querySelectorAll(".project-visual-img").forEach((img) => {
+    const markReady = () => img.classList.add("is-ready");
+    const hideBroken = () => {
+      img.removeAttribute("src");
+      img.classList.remove("is-ready");
+      img.setAttribute("aria-hidden", "true");
+    };
+
+    if (img.complete && img.naturalWidth > 0) markReady();
+    else {
+      img.addEventListener("load", markReady, { once: true });
+      img.addEventListener("error", hideBroken, { once: true });
+    }
   });
+
+  const ending = document.querySelector(".ending");
+  const endingVideo = document.querySelector(".ending-video");
+  if (ending && endingVideo) {
+    endingVideo.addEventListener(
+      "loadeddata",
+      () => {
+        ending.classList.add("has-media");
+      },
+      { once: true }
+    );
+    endingVideo.addEventListener(
+      "error",
+      () => {
+        ending.classList.remove("has-media");
+      },
+      { once: true }
+    );
+    endingVideo.load();
+  }
 
   if (header && hero) {
     const syncHeaderTheme = () => {
@@ -58,18 +72,19 @@
     window.addEventListener("resize", syncHeaderTheme, { passive: true });
   }
 
+  const projectIds = new Set(["stridesafe", "signalbrief", "debatemaster"]);
+
   const setActiveNav = () => {
     const y = window.scrollY + window.innerHeight * 0.35;
     let current = "top";
     sections.forEach((section) => {
       if (section.offsetTop <= y) current = section.id;
     });
+
     navLinks.forEach((link) => {
       const href = link.getAttribute("href")?.slice(1);
       const active =
-        href === current ||
-        (current === "work" && href === "projects") ||
-        (current === "projects" && href === "work");
+        href === current || (href === "projects" && projectIds.has(current));
       link.classList.toggle("is-active", Boolean(active));
     });
   };
