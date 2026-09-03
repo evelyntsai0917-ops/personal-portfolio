@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evelyn Tsai — AI Product Manager</title>
+    <meta
+      name="description"
+      content="Pei-Jung (Evelyn) Tsai — AI product manager and UX-minded creator. Turning ideas into thoughtful, usable and practical digital experiences."
+    />
+    <meta name="theme-color" content="#7a7f98" />
+    <meta property="og:title" content="Evelyn Tsai — Personal Portfolio" />
+    <meta
+      property="og:description"
+      content="AI Product Manager · UI / UX. Turning ideas into thoughtful, usable and practical digital experiences."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/hero-poster.png" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/hero.mp4" as="video" type="video/mp4" />
+    <link rel="preload" href="assets/hero-poster.png" as="image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Noto+Sans+TC:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#about">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Introduction">
+        <div class="hero-stage" aria-hidden="true">
+          <img
+            class="hero-poster"
+            src="assets/hero-poster.png"
+            alt=""
+            width="1280"
+            height="720"
+          />
+          <video
+            class="hero-video"
+            muted
+            playsinline
+            preload="auto"
+            poster="assets/hero-poster.png"
+          >
+            <source src="assets/hero.mp4?v=image2" type="video/mp4" />
+          </video>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="hero-evelyn">EVELYN</span>
+          <span class="hero-tsai">TSAI</span>
+          <span class="hero-safe" aria-hidden="true"></span>
+        </h1>
+
+        <a class="hero-scroll" href="#about" aria-label="Go to About me">
+          <span class="hero-scroll-label">About me</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 4v14M6 12.5 12 19l6-6.5" />
+          </svg>
+        </a>
+      </section>
+
+      <section class="panel about" id="about">
+        <div class="panel-inner about-inner">
+          <p class="about-label reveal-about" data-reveal-about>About Me</p>
+
+          <div class="about-grid">
+            <div class="about-col about-col--identity">
+              <div class="about-identity reveal-about" data-reveal-about style="--reveal-delay: 0.1s">
+                <p class="about-name-zh" lang="zh-Hant">蔡佩融</p>
+                <p class="about-name-en">
+                  Pei-Jung <span class="about-name-nick">(Evelyn)</span> Tsai
+                </p>
+                <div class="about-role-block" lang="zh-Hant">
+                  <p class="about-role-label">應徵職位</p>
+                  <p class="about-role-title">AI 產品經理</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-col about-col--story">
+              <p class="about-statement reveal-about" data-reveal-about style="--reveal-delay: 0.22s" lang="zh-Hant">
+                好奇心 × 韌性 × 成長型思維
+              </p>
+
+              <ol class="about-points">
+                <li class="about-point reveal-about" data-reveal-about style="--reveal-delay: 0.36s">
+                  <span class="about-point-num" aria-hidden="true">01</span>
+                  <p class="about-point-text" lang="zh-Hant">
+                    具商業與資訊系統跨域背景，<br />
+                    能從需求出發理解技術可行性
+                  </p>
+                </li>
+                <li class="about-point reveal-about" data-reveal-about style="--reveal-delay: 0.5s">
+                  <span class="about-point-num" aria-hidden="true">02</span>
+                  <p class="about-point-text" lang="zh-Hant">
+                    具跨文化、跨領域團隊協作與專案推進經驗，<br />
+                    曾參與團隊協作與領導
+                  </p>
+                </li>
+                <li class="about-point reveal-about" data-reveal-about style="--reveal-delay: 0.64s">
+                  <span class="about-point-num" aria-hidden="true">03</span>
+                  <p class="about-point-text" lang="zh-Hant">
+                    持續探索 AI 技術，<br />
+                    並具 AI 應用與產品實作經驗
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel work" id="work">
+        <div class="panel-inner">
+          <p class="section-kicker">02 — Selected Work</p>
+          <div class="about-head">
+            <h2 id="projects">Projects</h2>
+            <p class="section-zh" lang="zh-Hant">精選專案</p>
+          </div>
+
+          <ol class="project-list">
+            <li>
+              <a class="project" href="https://str1desafe.app" target="_blank" rel="noopener noreferrer">
+                <span class="project-year">2026</span>
+                <span class="project-body">
+                  <span class="project-title">STR1DESAFE</span>
+                  <span class="project-desc">Industry project web app for safer outdoor exercise in extreme heat — live weather risk, shaded routes, and AI-assisted planning. Selected for Monash Live Expo.</span>
+                </span>
+                <span class="project-role">Product · UX · Frontend</span>
+              </a>
+            </li>
+            <li>
+              <article class="project">
+                <span class="project-year">2026</span>
+                <span class="project-body">
+                  <span class="project-title">SignalBrief</span>
+                  <span class="project-desc">Independent product that collects, ranks, and generates structured AI summaries of major market events — reducing the time needed to scan large volumes of news.</span>
+                </span>
+                <span class="project-role">End-to-end Product</span>
+              </article>
+            </li>
+            <li>
+              <article class="project">
+                <span class="project-year">2020</span>
+                <span class="project-body">
+                  <span class="project-title">Market Sentiment Capstone</span>
+                  <span class="project-desc">Undergraduate research connecting public market commentary, sentiment analysis, and time-series models. Awarded first place in the capstone project competition.</span>
+                </span>
+                <span class="project-role">Research · Data</span>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="panel skills" id="skills">
+        <div class="panel-inner">
+          <p class="section-kicker">03 — Toolkit</p>
+          <div class="about-head">
+            <h2>Skills / Tools</h2>
+            <p class="section-zh" lang="zh-Hant">能力與工具</p>
+          </div>
+
+          <div class="skill-groups">
+            <div>
+              <h3>Product</h3>
+              <p>User research · Requirements · User stories · MoSCoW · PRD · Agile delivery</p>
+            </div>
+            <div>
+              <h3>Design</h3>
+              <p>UX analysis · User flows · Wireframes · UI thinking · Figma · Lucidchart</p>
+            </div>
+            <div>
+              <h3>Build</h3>
+              <p>Python · Vue · FastAPI · PostgreSQL · Docker · AWS · CI/CD · Git</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel contact" id="contact">
+        <div class="panel-inner">
+          <p class="section-kicker">04 — Contact</p>
+          <div class="about-head">
+            <h2>Let’s talk</h2>
+            <p class="section-zh" lang="zh-Hant">保持聯繫</p>
+          </div>
+          <a class="contact-mail" href="mailto:evelyntsai0917@gmail.com">evelyntsai0917@gmail.com</a>
+          <p class="contact-links">
+            <a href="https://linkedin.com/in/pei-jung-tsai" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/evelyntsai0917-ops" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span>Taiwan · Melbourne</span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Pei-Jung Tsai</p>
+      <p>Independent creator</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
