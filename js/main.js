@@ -42,21 +42,108 @@
   const ending = document.querySelector(".ending");
   const endingVideo = document.querySelector(".ending-video");
   if (ending && endingVideo) {
-    endingVideo.addEventListener(
-      "loadeddata",
-      () => {
-        ending.classList.add("has-media");
-      },
-      { once: true }
-    );
+    const TEXT_AT_SECONDS = 1;
+    let playedThisEntry = false;
+    let textShown = false;
+    let wasAway = true;
+
+    endingVideo.muted = true;
+    endingVideo.playsInline = true;
+    endingVideo.loop = false;
+
+    const showEndingText = () => {
+      if (textShown) return;
+      textShown = true;
+      ending.classList.add("is-text-in");
+    };
+
+    const hideEndingText = () => {
+      textShown = false;
+      ending.classList.remove("is-text-in");
+    };
+
+    const freezeLastFrame = () => {
+      endingVideo.pause();
+    };
+
+    const resetEnding = () => {
+      playedThisEntry = false;
+      hideEndingText();
+      endingVideo.pause();
+      try {
+        endingVideo.currentTime = 0;
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const playEnding = async () => {
+      if (playedThisEntry) return;
+      playedThisEntry = true;
+      hideEndingText();
+
+      try {
+        endingVideo.currentTime = 0;
+      } catch {
+        /* ignore */
+      }
+
+      try {
+        await endingVideo.play();
+      } catch {
+        showEndingText();
+      }
+    };
+
+    endingVideo.addEventListener("timeupdate", () => {
+      if (endingVideo.currentTime >= TEXT_AT_SECONDS) {
+        showEndingText();
+      }
+    });
+
+    endingVideo.addEventListener("ended", () => {
+      freezeLastFrame();
+      showEndingText();
+    });
+
     endingVideo.addEventListener(
       "error",
       () => {
-        ending.classList.remove("has-media");
+        showEndingText();
       },
       { once: true }
     );
-    endingVideo.load();
+
+    if (reduceMotion) {
+      endingVideo.pause();
+      ending.classList.add("is-text-in");
+      textShown = true;
+    } else {
+      const endingIo = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const substantiallyVisible =
+              entry.isIntersecting && entry.intersectionRatio >= 0.55;
+
+            if (substantiallyVisible) {
+              if (wasAway) {
+                wasAway = false;
+                playEnding();
+              }
+              return;
+            }
+
+            if (!entry.isIntersecting || entry.intersectionRatio <= 0.08) {
+              wasAway = true;
+              resetEnding();
+            }
+          });
+        },
+        { threshold: [0, 0.08, 0.55, 0.75] }
+      );
+
+      endingIo.observe(ending);
+    }
   }
 
   if (header && hero) {
@@ -64,7 +151,15 @@
       const headerH = header.offsetHeight;
       const heroRect = hero.getBoundingClientRect();
       const inHero = heroRect.bottom > headerH + 24;
-      header.classList.toggle("on-hero", inHero);
+
+      let inEnding = false;
+      if (ending) {
+        const endingRect = ending.getBoundingClientRect();
+        inEnding =
+          endingRect.top < headerH + 40 && endingRect.bottom > headerH + 24;
+      }
+
+      header.classList.toggle("on-hero", inHero || inEnding);
     };
 
     syncHeaderTheme();

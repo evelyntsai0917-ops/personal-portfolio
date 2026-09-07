@@ -1,2 +1,2 @@
-Place ending character animation here:
-  character-video.mp4
+Ending background video:
+  portfolio-ending.mp4

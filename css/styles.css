@@ -991,14 +991,16 @@ blockquote {
 .ending {
   position: relative;
   height: 100svh;
+  height: 100dvh;
   min-height: 100svh;
+  min-height: 100dvh;
   max-height: 100svh;
-  display: flex;
-  align-items: center;
+  max-height: 100dvh;
+  display: block;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--bg) 0%, #b7bbd0 45%, #9ea3bb 100%);
-  padding-top: calc(var(--header-h) + 1rem);
-  padding-bottom: 2.5rem;
+  background: #d8d4cc;
+  padding: 0;
+  scroll-margin-top: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -1008,74 +1010,138 @@ blockquote {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  display: grid;
-  place-items: center;
 }
 
 .ending-video {
-  width: auto;
+  display: block;
+  width: 100%;
   height: 100%;
   max-width: none;
   object-fit: cover;
-  object-position: center center;
+  object-position: left center;
+}
+
+.ending-content {
+  position: absolute;
+  z-index: 2;
+  top: 64%;
+  right: clamp(1.5rem, 8vw, 9vw);
+  width: min(42vw, 28rem);
+  transform: translateY(-50%);
+  text-align: left;
+  pointer-events: none;
+}
+
+.ending-content a {
+  pointer-events: auto;
+}
+
+.ending-thanks,
+.ending-quote,
+.ending-name,
+.ending-links {
   opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.85s var(--ease),
+    transform 0.85s var(--ease);
 }
 
-.ending.has-media .ending-video {
+.ending.is-text-in .ending-thanks {
   opacity: 1;
+  transform: none;
+  transition-delay: 0s;
 }
 
-.ending-inner {
-  position: relative;
-  z-index: 1;
-  width: min(980px, 100%);
+.ending.is-text-in .ending-quote {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.1s;
+}
+
+.ending.is-text-in .ending-name {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.18s;
+}
+
+.ending.is-text-in .ending-links {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.26s;
 }
 
 .ending-thanks {
   margin: 0 0 1rem;
   font-family: Anton, sans-serif;
-  font-size: clamp(3.4rem, 10vw, 7.5rem);
+  font-size: clamp(3.6rem, 9vw, 8.5rem);
   font-weight: 400;
   line-height: 0.92;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--cream);
+  text-shadow: 0 2px 24px rgba(28, 28, 36, 0.28);
 }
 
 .ending-quote {
-  margin: 0 0 2.4rem;
+  margin: 0 0 2.2rem;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
   font-style: italic;
   font-weight: 500;
   line-height: 1.35;
-  color: var(--ink-soft);
+  color: var(--cream);
+  text-shadow: 0 1px 16px rgba(28, 28, 36, 0.22);
 }
 
 .ending-name {
-  margin: 0 0 1.8rem;
-  font-size: 0.9rem;
+  margin: 0 0 1.6rem;
+  font-size: 0.88rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--cream);
 }
 
 .ending-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.4rem;
+  gap: 1.35rem;
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: rgba(244, 241, 234, 0.78);
+}
+
+.ending-links a {
+  position: relative;
+  color: inherit;
+  transition: color 0.3s var(--ease);
+}
+
+.ending-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2em;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s var(--ease);
 }
 
 .ending-links a:hover,
 .ending-links a:focus-visible {
-  color: var(--ink);
+  color: var(--cream);
+}
+
+.ending-links a:hover::after,
+.ending-links a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 [data-reveal] {
@@ -1101,7 +1167,7 @@ blockquote {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  scroll-snap-align: end;
+  scroll-snap-align: none;
 }
 
 .reveal {
@@ -1147,11 +1213,31 @@ blockquote {
   .panel.about,
   .projects-intro,
   .project-case,
-  .why-me,
-  .ending {
+  .why-me {
     height: auto;
     max-height: none;
     overflow: visible;
+  }
+
+  .ending {
+    height: 100svh;
+    height: 100dvh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    max-height: 100svh;
+    max-height: 100dvh;
+    overflow: hidden;
+    padding: 0;
+    scroll-margin-top: 0;
+  }
+
+  .ending-content {
+    right: clamp(1.25rem, 5vw, 2.5rem);
+    width: min(46vw, 22rem);
+  }
+
+  .ending-video {
+    object-position: 18% center;
   }
 
   .project-case-grid {
@@ -1270,6 +1356,11 @@ blockquote {
     padding-bottom: 4.2rem;
   }
 
+  .panel.ending {
+    padding: 0;
+    scroll-margin-top: 0;
+  }
+
   .panel.about {
     min-height: auto;
     padding-top: clamp(6.5rem, 14vh, 8rem);
@@ -1277,8 +1368,7 @@ blockquote {
   }
 
   .projects-intro,
-  .why-me,
-  .ending {
+  .why-me {
     padding-top: clamp(5.5rem, 12vh, 7rem);
     padding-bottom: clamp(4.5rem, 10vh, 6rem);
   }
@@ -1306,9 +1396,44 @@ blockquote {
 
   .projects-intro,
   .project-case,
-  .why-me,
-  .ending {
+  .why-me {
     min-height: auto;
+  }
+
+  .ending {
+    height: 100svh;
+    height: 100dvh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    max-height: 100svh;
+    max-height: 100dvh;
+    scroll-margin-top: 0;
+  }
+
+  .ending-content {
+    top: auto;
+    left: 50%;
+    right: auto;
+    bottom: max(1.5rem, env(safe-area-inset-bottom, 0px) + 1.2rem);
+    width: min(92vw, 26rem);
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .ending-thanks {
+    font-size: clamp(2.8rem, 14vw, 4.6rem);
+  }
+
+  .ending-quote {
+    margin-bottom: 1.4rem;
+  }
+
+  .ending-links {
+    justify-content: center;
+  }
+
+  .ending-video {
+    object-position: 22% 30%;
   }
 
   .project-case {
